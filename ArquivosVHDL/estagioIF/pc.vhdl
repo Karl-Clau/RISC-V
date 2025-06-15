@@ -5,11 +5,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity pc is
 	Port (
-    	PCin : in std_logic_vector(31 downto 0);
+    	pc_i : in std_logic_vector(31 downto 0);
     	clk: in std_logic;
         reset: in std_logic;
 
-        PCout: out std_logic_vector(31 downto 0)
+        pc_o: out std_logic_vector(31 downto 0)
     	);
 end pc;
 
@@ -19,10 +19,10 @@ begin
 
 process(clk, reset)
 begin
-	if reset = '1' then PCout <= X"00000000";
+	if reset = '1' then pc_o <= X"00000000";
 	else
 		if clk'event and clk = '1' then
-			PCout <= PCin;
+			pc_o <= pc_i;
 		end if;
 	end if;
 end process;

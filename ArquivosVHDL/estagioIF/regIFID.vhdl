@@ -4,14 +4,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity IFID is
 	Port (
-    	PCin : in std_logic_vector(31 downto 0);
-        INSTin: in std_logic_vector(31 downto 0);
+    	pc_i : in std_logic_vector(31 downto 0);
+        inst_i: in std_logic_vector(31 downto 0);
 
     	clk: in std_logic;
         reset: in std_logic;
 
-        PCout: out std_logic_vector(31 downto 0);
-        INSTout: out std_logic_vector(31 downto 0)
+        pc_o: out std_logic_vector(31 downto 0);
+        inst_o: out std_logic_vector(31 downto 0)
     	);
 end IFID;
 
@@ -22,12 +22,12 @@ begin
 process(clk, reset)
 begin
 	if reset = '1' then
-        PCout <= X"00000000";
-        INSTout <= X"00000000";
+        pc_o <= X"00000000";
+        inst_o <= X"00000000";
 	else
 		if clk'event and clk = '1' then
-			PCout <= PCin;
-            INSTout <= INSTin;
+			pc_o <= pc_i;
+            inst_o <= inst_i;
 		end if;
 	end if;
 end process;
