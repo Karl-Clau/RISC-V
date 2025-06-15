@@ -5,6 +5,7 @@ use ieee.numeric_std.all;
 entity register_file is
     port (
         clk      : in  std_logic;
+        reset    : in  std_logic;
         reg_write: in  std_logic; -- Control signal to enable writing
         rs1_addr : in  std_logic_vector(4 downto 0);
         rs2_addr : in  std_logic_vector(4 downto 0);
@@ -21,6 +22,17 @@ architecture behavioral of register_file is
     signal registers : reg_array := (others => (others => '0'));
 
 begin
+
+    -- Reset Process: Asynchronous reset to clear all registers
+    reset_proc: process(reset)
+    begin
+        if reset = '1' then
+            -- Clear all registers to zero on reset
+            for i in 0 to 31 loop
+                registers(i) <= (others => '0');
+            end loop;
+        end if;
+    end process reset_proc;
 
     -- Read Process: Synchronous to the rising edge (first half of the clock)
     read_proc: process(clk)
