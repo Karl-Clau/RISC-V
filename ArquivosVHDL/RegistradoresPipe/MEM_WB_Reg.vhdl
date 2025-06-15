@@ -17,8 +17,8 @@ entity MEM_WB_Pipeline is
         -- Outputs to WB stage
         MemToReg_out  : out std_logic;
         RegWrite_out  : out std_logic;
-        ReadData_out  : out std_logic_vector(31 downto 0);
         ALUResult_out : out std_logic_vector(31 downto 0);
+        ReadData_out  : out std_logic_vector(31 downto 0);
         Rd_out   : out std_logic_vector(4 downto 0)
     );
 end MEM_WB_Pipeline;

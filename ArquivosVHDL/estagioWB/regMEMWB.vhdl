@@ -3,6 +3,10 @@
 -- O código do registrador Rd, também calculado lá em ID e propagado
 -- ALU_result, o resultado da operação da ULA, calculado em EX e propagado por MEM
 -- Read_data, o valor que foi lido na memória no estágio MEM
+
+
+-- JA ESTA PRESENTE EM EX_MEM_Reg.vhdl
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 

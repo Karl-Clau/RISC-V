@@ -905,8 +905,8 @@ entity MEM_WB_Pipeline is
         -- Outputs to WB stage
         MemToReg_out  : out std_logic;
         RegWrite_out  : out std_logic;
-        ReadData_out  : out std_logic_vector(31 downto 0);
         ALUResult_out : out std_logic_vector(31 downto 0);
+        ReadData_out  : out std_logic_vector(31 downto 0);
         Rd_out   : out std_logic_vector(4 downto 0)
     );
 end MEM_WB_Pipeline;
@@ -933,7 +933,7 @@ end Behavioral;</string>
         </entry>
         <entry>
           <string>externalOutputs</string>
-          <string>MemToReg_out,RegWrite_out,ReadData_out:32,ALUResult_out:32,Rd_out:5</string>
+          <string>MemToReg_out,RegWrite_out,ALUResult_out:32,ReadData_out:32,Rd_out:5</string>
         </entry>
         <entry>
           <string>Width</string>
