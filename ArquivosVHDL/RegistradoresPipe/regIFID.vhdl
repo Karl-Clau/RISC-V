@@ -10,6 +10,9 @@ entity IFID is
     	clk: in std_logic;
         reset: in std_logic;
 
+		freeze: in std_logic;
+		bubble: in std_logic;
+
         pc_o: out std_logic_vector(31 downto 0);
         inst_o: out std_logic_vector(31 downto 0)
     	);
@@ -24,11 +27,19 @@ begin
 	if reset = '1' then
         pc_o <= X"00000000";
         inst_o <= X"00000000";
-	else
-		if clk'event and clk = '1' then
-			pc_o <= pc_i;
-            inst_o <= inst_i;
+
+	elsif rising_edge(clk) then
+
+		if freeze = '0' then
+			if bubble = '1' then
+				pc_o <= X"00000000";
+				inst_o <= X"00000000";
+			else
+				pc_o <= pc_i;
+				inst_o <= inst_i;
+			end if;
 		end if;
+
 	end if;
 end process;
 
