@@ -58,7 +58,7 @@ process(rs1, rs2, opcode, rd_IDEX, RegWrite_IDEX, rd_EXMEM, RegWrite_EXMEM, rd_M
     -- inst_type = 2 indica que a instrução é addi, andi, ori, xori, lli, srli, lw, sw, ou seja, está sujeita a hazard de escrita-leitura apenas em rs1
     -- inst_type = 3 indica que a instrução e add, sub, and, or, xor, sll, srl, beq, bne, ou seja, está sujeita a hazard de escrita-leitura em rs1 e rs2
 
-    variable WriteReadHazard: std_logic := '0'; -- Indica que há um hazard de escrita-leitura
+    variable WriteReadHazard: std_logic; -- Indica que há um hazard de escrita-leitura
 
 begin
     -- Primeiro, vamos verificar se há um jump acontecendo. Nesse caso, independentemente dos demais hazards, as instruções em IFID, IDEX estão erradas, e o valor de PC também está errado (está prestes a ser atualizado)
@@ -90,26 +90,32 @@ begin
             when 2 =>
                 if RegWrite_IDEX = '1' and rd_IDEX = rs1 then
                     writeReadHazard := '1';
-                end if;
-                if RegWrite_EXMEM = '1' and rd_EXMEM = rs1 then
+
+                elsif RegWrite_EXMEM = '1' and rd_EXMEM = rs1 then
                     writeReadHazard := '1';
-                end if;
-                if RegWrite_MEMWB = '1' and rd_MEMWB = rs1 then
+                
+                elsif RegWrite_MEMWB = '1' and rd_MEMWB = rs1 then
                     writeReadHazard := '1';
+                
+                else
+                    writeReadHazard := '0';
+                
                 end if;
-                -- Fora esses casos, ficamos com o valor default de '0'
 
             when 3 =>
                 if RegWrite_IDEX = '1' and (rd_IDEX = rs1 or rd_IDEX = rs2) then
                     writeReadHazard := '1';
-                end if;
-                if RegWrite_EXMEM = '1' and (rd_EXMEM = rs1 or rd_EXMEM = rs2) then
+
+                elsif RegWrite_EXMEM = '1' and (rd_EXMEM = rs1 or rd_EXMEM = rs2) then
                     writeReadHazard := '1';
-                end if;
-                if RegWrite_MEMWB = '1' and (rd_MEMWB = rs1 or rd_MEMWB = rs2) then
+
+                elsif RegWrite_MEMWB = '1' and (rd_MEMWB = rs1 or rd_MEMWB = rs2) then
                     writeReadHazard := '1';
+
+                else
+                    writeReadHazard := '0';
+
                 end if;
-                -- Fora esses casos, ficamos com o valor default de '0'
 
             when others =>
                 -- No tipo 1, não temos hazard de escrita-leitura

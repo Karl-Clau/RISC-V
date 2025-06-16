@@ -1,0 +1,5 @@
+Referência das instruções:
+    https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html#lui
+
+Assembly para RISC-V e RISC-V para assembly
+    https://luplab.gitlab.io/rvcodecjs
