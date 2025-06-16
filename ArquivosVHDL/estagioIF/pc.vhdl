@@ -9,6 +9,8 @@ entity pc is
     	clk: in std_logic;
         reset: in std_logic;
 
+		freeze: in std_logic;
+
         pc_o: out std_logic_vector(31 downto 0)
     	);
 end pc;
@@ -19,11 +21,13 @@ begin
 
 process(clk, reset)
 begin
-	if reset = '1' then pc_o <= X"00000000";
-	else
-		if clk'event and clk = '1' then
-			pc_o <= pc_i;
-		end if;
+	if reset = '1' then
+		pc_o <= X"00000000";
+
+	elsif rising_edge(clk) and freeze = '0' then
+
+		pc_o <= pc_i;
+
 	end if;
 end process;
 
